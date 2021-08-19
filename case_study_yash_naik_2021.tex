@@ -1,0 +1,538 @@
+% Options for packages loaded elsewhere
+\PassOptionsToPackage{unicode}{hyperref}
+\PassOptionsToPackage{hyphens}{url}
+%
+\documentclass[
+]{article}
+\usepackage{amsmath,amssymb}
+\usepackage{lmodern}
+\usepackage{ifxetex,ifluatex}
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+  \usepackage{textcomp} % provide euro and other symbols
+\else % if luatex or xetex
+  \usepackage{unicode-math}
+  \defaultfontfeatures{Scale=MatchLowercase}
+  \defaultfontfeatures[\rmfamily]{Ligatures=TeX,Scale=1}
+\fi
+% Use upquote if available, for straight quotes in verbatim environments
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+\IfFileExists{microtype.sty}{% use microtype if available
+  \usepackage[]{microtype}
+  \UseMicrotypeSet[protrusion]{basicmath} % disable protrusion for tt fonts
+}{}
+\makeatletter
+\@ifundefined{KOMAClassName}{% if non-KOMA class
+  \IfFileExists{parskip.sty}{%
+    \usepackage{parskip}
+  }{% else
+    \setlength{\parindent}{0pt}
+    \setlength{\parskip}{6pt plus 2pt minus 1pt}}
+}{% if KOMA class
+  \KOMAoptions{parskip=half}}
+\makeatother
+\usepackage{xcolor}
+\IfFileExists{xurl.sty}{\usepackage{xurl}}{} % add URL line breaks if available
+\IfFileExists{bookmark.sty}{\usepackage{bookmark}}{\usepackage{hyperref}}
+\hypersetup{
+  pdftitle={BellaBeat Leaf Case Study},
+  pdfauthor={Yash Naik},
+  hidelinks,
+  pdfcreator={LaTeX via pandoc}}
+\urlstyle{same} % disable monospaced font for URLs
+\usepackage[margin=1in]{geometry}
+\usepackage{color}
+\usepackage{fancyvrb}
+\newcommand{\VerbBar}{|}
+\newcommand{\VERB}{\Verb[commandchars=\\\{\}]}
+\DefineVerbatimEnvironment{Highlighting}{Verbatim}{commandchars=\\\{\}}
+% Add ',fontsize=\small' for more characters per line
+\usepackage{framed}
+\definecolor{shadecolor}{RGB}{248,248,248}
+\newenvironment{Shaded}{\begin{snugshade}}{\end{snugshade}}
+\newcommand{\AlertTok}[1]{\textcolor[rgb]{0.94,0.16,0.16}{#1}}
+\newcommand{\AnnotationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\AttributeTok}[1]{\textcolor[rgb]{0.77,0.63,0.00}{#1}}
+\newcommand{\BaseNTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\BuiltInTok}[1]{#1}
+\newcommand{\CharTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\CommentTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\CommentVarTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ConstantTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ControlFlowTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\DataTypeTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{#1}}
+\newcommand{\DecValTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\DocumentationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\ErrorTok}[1]{\textcolor[rgb]{0.64,0.00,0.00}{\textbf{#1}}}
+\newcommand{\ExtensionTok}[1]{#1}
+\newcommand{\FloatTok}[1]{\textcolor[rgb]{0.00,0.00,0.81}{#1}}
+\newcommand{\FunctionTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\ImportTok}[1]{#1}
+\newcommand{\InformationTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\newcommand{\KeywordTok}[1]{\textcolor[rgb]{0.13,0.29,0.53}{\textbf{#1}}}
+\newcommand{\NormalTok}[1]{#1}
+\newcommand{\OperatorTok}[1]{\textcolor[rgb]{0.81,0.36,0.00}{\textbf{#1}}}
+\newcommand{\OtherTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{#1}}
+\newcommand{\PreprocessorTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textit{#1}}}
+\newcommand{\RegionMarkerTok}[1]{#1}
+\newcommand{\SpecialCharTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\SpecialStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\StringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\VariableTok}[1]{\textcolor[rgb]{0.00,0.00,0.00}{#1}}
+\newcommand{\VerbatimStringTok}[1]{\textcolor[rgb]{0.31,0.60,0.02}{#1}}
+\newcommand{\WarningTok}[1]{\textcolor[rgb]{0.56,0.35,0.01}{\textbf{\textit{#1}}}}
+\usepackage{graphicx}
+\makeatletter
+\def\maxwidth{\ifdim\Gin@nat@width>\linewidth\linewidth\else\Gin@nat@width\fi}
+\def\maxheight{\ifdim\Gin@nat@height>\textheight\textheight\else\Gin@nat@height\fi}
+\makeatother
+% Scale images if necessary, so that they will not overflow the page
+% margins by default, and it is still possible to overwrite the defaults
+% using explicit options in \includegraphics[width, height, ...]{}
+\setkeys{Gin}{width=\maxwidth,height=\maxheight,keepaspectratio}
+% Set default figure placement to htbp
+\makeatletter
+\def\fps@figure{htbp}
+\makeatother
+\setlength{\emergencystretch}{3em} % prevent overfull lines
+\providecommand{\tightlist}{%
+  \setlength{\itemsep}{0pt}\setlength{\parskip}{0pt}}
+\setcounter{secnumdepth}{-\maxdimen} % remove section numbering
+\ifluatex
+  \usepackage{selnolig}  % disable illegal ligatures
+\fi
+
+\title{BellaBeat Leaf Case Study}
+\author{Yash Naik}
+\date{8/18/2021}
+
+\begin{document}
+\maketitle
+
+\hypertarget{bellabeat-product-analysis-leaf-wearable}{%
+\section{BellaBeat Product Analysis : Leaf
+wearable}\label{bellabeat-product-analysis-leaf-wearable}}
+
+\hypertarget{deliverables}{%
+\subsection{Deliverables}\label{deliverables}}
+
+\begin{itemize}
+\tightlist
+\item
+  A clear summary of the business task
+\item
+  A description of all data sources used
+\item
+  Documentation of any cleaning or manipulation of data
+\item
+  A summary of your analysis
+\item
+  Supporting visualizations and key findings
+\item
+  Your top high-level content recommendations based on your analysis
+\end{itemize}
+
+\hypertarget{business-task}{%
+\subsection{Business Task}\label{business-task}}
+
+In this project I will analyze smart device usage data in order to gain
+insight into how consumers use non-Bellabeat smart devices. I will then
+select one Bellabeat product to apply these insights to, in my
+presentation.
+
+\hypertarget{data-sources}{%
+\subsection{Data Sources}\label{data-sources}}
+
+Data source provided by the company
+
+\begin{itemize}
+\tightlist
+\item
+  Data from Mobius Kaggle file. Access data file
+  \href{https://www.kaggle.com/arashnic/fitbit}{here} Datasets contains
+  observations of 30 people from 2016-03-12 to 2016-05-12.
+\end{itemize}
+
+\begin{verbatim}
+## -- Attaching packages --------------------------------------- tidyverse 1.3.1 --
+\end{verbatim}
+
+\begin{verbatim}
+## v ggplot2 3.3.5     v purrr   0.3.4
+## v tibble  3.1.3     v dplyr   1.0.7
+## v tidyr   1.1.3     v stringr 1.4.0
+## v readr   2.0.1     v forcats 0.5.1
+\end{verbatim}
+
+\begin{verbatim}
+## -- Conflicts ------------------------------------------ tidyverse_conflicts() --
+## x dplyr::filter() masks stats::filter()
+## x dplyr::lag()    masks stats::lag()
+\end{verbatim}
+
+\hypertarget{downloaded-datasets}{%
+\subsection{Downloaded Datasets}\label{downloaded-datasets}}
+
+Leaf wearable devices is women-centric device primarily designed to
+track their activities, sleep schedules, hydration levels, hygene, etc.
+I will be analyzing Fitbit smart wearable device which provides tracking
+of some of the similar activities if not all. So, I have included these
+below mentioned datasets for my analysis.
+
+\begin{itemize}
+\tightlist
+\item
+  dailyActivity\_merged
+\item
+  dailySteps\_merged
+\item
+  minuteSleep\_merged
+\item
+  sleepDay\_merged
+\end{itemize}
+
+\begin{verbatim}
+## Rows: 413 Columns: 5
+\end{verbatim}
+
+\begin{verbatim}
+## -- Column specification --------------------------------------------------------
+## Delimiter: ","
+## chr (1): SleepDay
+## dbl (4): Id, TotalSleepRecords, TotalMinutesAsleep, TotalTimeInBed
+\end{verbatim}
+
+\begin{verbatim}
+## 
+## i Use `spec()` to retrieve the full column specification for this data.
+## i Specify the column types or set `show_col_types = FALSE` to quiet this message.
+\end{verbatim}
+
+\begin{verbatim}
+## Rows: 940 Columns: 15
+\end{verbatim}
+
+\begin{verbatim}
+## -- Column specification --------------------------------------------------------
+## Delimiter: ","
+## chr  (1): ActivityDate
+## dbl (14): Id, TotalSteps, TotalDistance, TrackerDistance, LoggedActivitiesDi...
+\end{verbatim}
+
+\begin{verbatim}
+## 
+## i Use `spec()` to retrieve the full column specification for this data.
+## i Specify the column types or set `show_col_types = FALSE` to quiet this message.
+\end{verbatim}
+
+\begin{verbatim}
+## Rows: 188521 Columns: 4
+\end{verbatim}
+
+\begin{verbatim}
+## -- Column specification --------------------------------------------------------
+## Delimiter: ","
+## chr (1): date
+## dbl (3): Id, value, logId
+\end{verbatim}
+
+\begin{verbatim}
+## 
+## i Use `spec()` to retrieve the full column specification for this data.
+## i Specify the column types or set `show_col_types = FALSE` to quiet this message.
+\end{verbatim}
+
+\begin{verbatim}
+## Rows: 940 Columns: 3
+\end{verbatim}
+
+\begin{verbatim}
+## -- Column specification --------------------------------------------------------
+## Delimiter: ","
+## chr (1): ActivityDay
+## dbl (2): Id, StepTotal
+\end{verbatim}
+
+\begin{verbatim}
+## 
+## i Use `spec()` to retrieve the full column specification for this data.
+## i Specify the column types or set `show_col_types = FALSE` to quiet this message.
+\end{verbatim}
+
+\hypertarget{explore-the-datasets}{%
+\paragraph{Explore the datasets}\label{explore-the-datasets}}
+
+\begin{verbatim}
+## # A tibble: 6 x 5
+##           Id SleepDay              TotalSleepRecor~ TotalMinutesAsl~ TotalTimeInBed
+##        <dbl> <chr>                            <dbl>            <dbl>          <dbl>
+## 1 1503960366 4/12/2016 12:00:00 AM                1              327            346
+## 2 1503960366 4/13/2016 12:00:00 AM                2              384            407
+## 3 1503960366 4/15/2016 12:00:00 AM                1              412            442
+## 4 1503960366 4/16/2016 12:00:00 AM                2              340            367
+## 5 1503960366 4/17/2016 12:00:00 AM                1              700            712
+## 6 1503960366 4/19/2016 12:00:00 AM                1              304            320
+\end{verbatim}
+
+\begin{verbatim}
+## # A tibble: 6 x 15
+##           Id ActivityDate TotalSteps TotalDistance TrackerDistance LoggedActivitie~
+##        <dbl> <chr>             <dbl>         <dbl>           <dbl>            <dbl>
+## 1 1503960366 4/12/2016         13162          8.5             8.5                 0
+## 2 1503960366 4/13/2016         10735          6.97            6.97                0
+## 3 1503960366 4/14/2016         10460          6.74            6.74                0
+## 4 1503960366 4/15/2016          9762          6.28            6.28                0
+## 5 1503960366 4/16/2016         12669          8.16            8.16                0
+## 6 1503960366 4/17/2016          9705          6.48            6.48                0
+## # ... with 9 more variables: VeryActiveDistance <dbl>,
+## #   ModeratelyActiveDistance <dbl>, LightActiveDistance <dbl>,
+## #   SedentaryActiveDistance <dbl>, VeryActiveMinutes <dbl>,
+## #   FairlyActiveMinutes <dbl>, LightlyActiveMinutes <dbl>,
+## #   SedentaryMinutes <dbl>, Calories <dbl>
+\end{verbatim}
+
+\begin{verbatim}
+## # A tibble: 6 x 3
+##           Id ActivityDay StepTotal
+##        <dbl> <chr>           <dbl>
+## 1 1503960366 4/12/2016       13162
+## 2 1503960366 4/13/2016       10735
+## 3 1503960366 4/14/2016       10460
+## 4 1503960366 4/15/2016        9762
+## 5 1503960366 4/16/2016       12669
+## 6 1503960366 4/17/2016        9705
+\end{verbatim}
+
+\begin{verbatim}
+## # A tibble: 6 x 4
+##           Id date                 value       logId
+##        <dbl> <chr>                <dbl>       <dbl>
+## 1 1503960366 4/12/2016 2:47:30 AM     3 11380564589
+## 2 1503960366 4/12/2016 2:48:30 AM     2 11380564589
+## 3 1503960366 4/12/2016 2:49:30 AM     1 11380564589
+## 4 1503960366 4/12/2016 2:50:30 AM     1 11380564589
+## 5 1503960366 4/12/2016 2:51:30 AM     1 11380564589
+## 6 1503960366 4/12/2016 2:52:30 AM     1 11380564589
+\end{verbatim}
+
+Checking the maximum and minimum distance values in activity dataset to
+look for potential outliers
+
+\begin{verbatim}
+## [1] 28.03
+\end{verbatim}
+
+\begin{verbatim}
+## [1] 0
+\end{verbatim}
+
+\begin{verbatim}
+## [1] 796
+\end{verbatim}
+
+\begin{verbatim}
+## [1] 58
+\end{verbatim}
+
+We can observe that minimum value for TrackerDistance is 0 which is an
+indication to examine further.
+
+\begin{verbatim}
+## # A tibble: 2 x 2
+##   `activity_log$TrackerDistance == 0`     n
+##   <lgl>                               <int>
+## 1 FALSE                                 862
+## 2 TRUE                                   78
+\end{verbatim}
+
+We can see that out of 940 results 78 are 0 which accounts for roughly
+5\% missing values from daily activities, so it will be good idea to
+filter out these missing values.
+
+\begin{verbatim}
+## # A tibble: 6 x 15
+##           Id ActivityDate TotalSteps TotalDistance TrackerDistance LoggedActivitie~
+##        <dbl> <chr>             <dbl>         <dbl>           <dbl>            <dbl>
+## 1 1503960366 4/12/2016         13162          8.5             8.5                 0
+## 2 1503960366 4/13/2016         10735          6.97            6.97                0
+## 3 1503960366 4/14/2016         10460          6.74            6.74                0
+## 4 1503960366 4/15/2016          9762          6.28            6.28                0
+## 5 1503960366 4/16/2016         12669          8.16            8.16                0
+## 6 1503960366 4/17/2016          9705          6.48            6.48                0
+## # ... with 9 more variables: VeryActiveDistance <dbl>,
+## #   ModeratelyActiveDistance <dbl>, LightActiveDistance <dbl>,
+## #   SedentaryActiveDistance <dbl>, VeryActiveMinutes <dbl>,
+## #   FairlyActiveMinutes <dbl>, LightlyActiveMinutes <dbl>,
+## #   SedentaryMinutes <dbl>, Calories <dbl>
+\end{verbatim}
+
+Next, we will calculate summary statistics of the filtered activity data
+and create different levels for activity.
+
+\begin{verbatim}
+## # A tibble: 6 x 5
+##           Id total_dist avg_dist num_dist distance_level   
+##        <dbl>      <dbl>    <dbl>    <int> <chr>            
+## 1 1503960366      242.      8.07       30 Highly Active    
+## 2 1624580081      121.      3.91       31 lowly Actively   
+## 3 1644430081      159.      5.30       30 Moderately Active
+## 4 1844505072       52.9     2.64       20 lowly Actively   
+## 5 1927972279       19.7     1.16       17 lowly Actively   
+## 6 2022484408      251.      8.08       31 Highly Active
+\end{verbatim}
+
+Creating a scatter plot to verify if there is any positive correlation
+between tracking distance and average distance.
+
+\includegraphics{case_study_yash_naik_2021_files/figure-latex/plot1-1.pdf}
+From the plot above, we can observe a \emph{little} \emph{positive}
+\emph{correlation} between tracking entries and average distance
+covered. All the users who are highly active have logged their entries
+more than 20 times. Similarly, moderately active users, have
+comparatively more tracking entries than lowly\_active users.
+
+Now, we can extend our analysis to dig deeper and check if users who are
+highly active, have slept for longer.
+
+\begin{verbatim}
+## # A tibble: 6 x 5
+##           Id total_sleep_min average_sleep_min num_sleep_entries sleep_levels   
+##        <dbl>           <dbl>             <dbl>             <int> <chr>          
+## 1 1503960366            9007              360.                25 Moderately Res~
+## 2 1644430081            1176              294                  4 Poorly Rested  
+## 3 1844505072            1956              652                  3 Well Rested    
+## 4 1927972279            2085              417                  5 Moderately Res~
+## 5 2026352035           14173              506.                28 Well Rested    
+## 6 2320127002              61               61                  1 Not Rested
+\end{verbatim}
+
+Now, we will again create a scatter plot to check for any correlation
+between average sleep and number of sleep entries.
+
+\begin{verbatim}
+## `geom_smooth()` using method = 'loess' and formula 'y ~ x'
+\end{verbatim}
+
+\includegraphics{case_study_yash_naik_2021_files/figure-latex/sleep_plot-1.pdf}
+Yes, we can observe a \emph{positive} \emph{correlation} between users
+who have more sleep entries and the number of hours they have slept.
+
+\hypertarget{to-analyse-a-pattern-between-activity-and-sleep-we-can-combine-the-two-summary-dataframes.}{%
+\subsubsection{To analyse a pattern between activity and sleep, we can
+combine the two summary
+dataframes.}\label{to-analyse-a-pattern-between-activity-and-sleep-we-can-combine-the-two-summary-dataframes.}}
+
+Combining \emph{summary\_activity} and \emph{summary\_sleep} to create a
+single dataframe.
+
+\begin{verbatim}
+##           Id total_dist avg_dist num_dist    distance_level total_sleep_min
+## 1 1503960366     242.10 8.070000       30     Highly Active            9007
+## 2 1644430081     158.86 5.295333       30 Moderately Active            1176
+## 3 1844505072      52.89 2.644500       20    lowly Actively            1956
+## 4 1927972279      19.67 1.157059       17    lowly Actively            2085
+## 5 2026352035     107.10 3.454839       31    lowly Actively           14173
+## 6 2320127002      98.82 3.187742       31    lowly Actively              61
+##   average_sleep_min num_sleep_entries      sleep_levels
+## 1          360.2800                25 Moderately Rested
+## 2          294.0000                 4     Poorly Rested
+## 3          652.0000                 3       Well Rested
+## 4          417.0000                 5 Moderately Rested
+## 5          506.1786                28       Well Rested
+## 6           61.0000                 1        Not Rested
+\end{verbatim}
+
+We will again visualize to check if there is any correlation between
+users who are highly active and who have slept for longer duration.
+
+\hypertarget{visualization}{%
+\subsection{Visualization}\label{visualization}}
+
+\includegraphics{case_study_yash_naik_2021_files/figure-latex/plot2-1.pdf}
+\includegraphics{case_study_yash_naik_2021_files/figure-latex/plot2-2.pdf}
+
+\begin{verbatim}
+## `geom_smooth()` using method = 'loess' and formula 'y ~ x'
+\end{verbatim}
+
+\includegraphics{case_study_yash_naik_2021_files/figure-latex/plot2-3.pdf}
+
+\begin{verbatim}
+## `geom_smooth()` using method = 'loess' and formula 'y ~ x'
+\end{verbatim}
+
+\includegraphics{case_study_yash_naik_2021_files/figure-latex/plot2-4.pdf}
+Initially, I thought there would be a strong positive correlation
+between average distance tracking and sleeping i.e.~A person who is very
+actively should have rested for a longer duration than someone who is
+less active on an average. Looking at these trends, I am surprised that
+my assumption has been refuted as after visualizing these trends, it
+appears that there is \emph{little} to \emph{no} correlation between the
+two things.
+
+\begin{Shaded}
+\begin{Highlighting}[]
+\FunctionTok{ggplot}\NormalTok{(}\AttributeTok{data =}\NormalTok{ activity\_sleep) }\SpecialCharTok{+} \FunctionTok{geom\_line}\NormalTok{(}\FunctionTok{aes}\NormalTok{(}\AttributeTok{x =}\NormalTok{ average\_sleep\_min, }\AttributeTok{y =}\NormalTok{ avg\_dist))}\SpecialCharTok{+}
+  \FunctionTok{labs}\NormalTok{(}\AttributeTok{title =} \StringTok{"Average Distance tracked VS Sleep levels"}\NormalTok{)}\SpecialCharTok{+}
+  \FunctionTok{facet\_wrap}\NormalTok{(}\SpecialCharTok{\textasciitilde{}}\NormalTok{distance\_level)}
+\end{Highlighting}
+\end{Shaded}
+
+\includegraphics{case_study_yash_naik_2021_files/figure-latex/unnamed-chunk-1-1.pdf}
+* Thus, we can observe that a majority of people who tracked as average
+distance of \textgreater{} 7 Km rested for less than 400 minutes (6
+hours, 30 mins)
+
+\begin{itemize}
+\tightlist
+\item
+  On Contrary, people who were moderately active, slept for longer than
+  400 minutes.
+\end{itemize}
+
+\hypertarget{summary}{%
+\subsection{Summary}\label{summary}}
+
+\begin{itemize}
+\item
+  This analysis was performed on a Fitbit wearable smart tracking
+  device. The data collected was based on a small group of 30 people in
+  2016 which was more than 5 years ago.
+\item
+  While cleaning the data, I found that almost \emph{5\%} of the data
+  from the sleep log was \emph{missing}, which could mean different
+  things like - some users did not wear the device while sleeping or the
+  device got discharged at night or there was some technical issue in
+  the device which resulted in these \emph{0} values.
+\item
+  Contrary to my initial assumption (people who are more active should
+  sleep for longer duration), I observed that there is \emph{no
+  correlation} between increased distance tracking and sleeping for
+  longer duration.
+\item
+  Final results show that people who were moderately active diring the
+  day i.e. people who tracked a distance between 4 Km to 8 Km had an
+  average sleep of 6 hours to 8 hours and beyond.
+\end{itemize}
+
+\hypertarget{recommendation}{%
+\subsection{Recommendation}\label{recommendation}}
+
+After analyzing the fitbit smart device in order to have its comparision
+with Bellabeat's Leaf, I can conclude with the following recommedations-
+
+\begin{itemize}
+\item
+  Focus on advertisements to market the theory that tracking increased
+  distances using Leaf device may result in better/relaxed sleep.
+\item
+  We should also consider why there were 5\% missing values in Fitbit
+  devices and avoid having those similar trends in Leaf by focusing on R
+  \& D as well.
+\end{itemize}
+
+** Increasing battery capacity to avoid discharge during the nights or
+decrease battery usage through \emph{low power mode} etc.
+
+\end{document}

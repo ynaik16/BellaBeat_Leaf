@@ -1,0 +1,268 @@
+---
+title: "BellaBeat Leaf Case Study"
+author: "Yash Naik"
+date: "8/18/2021"
+output:
+  html_document: default
+  pdf_document: default
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+
+# BellaBeat Product Analysis : Leaf wearable
+
+## Deliverables
+
+* A clear summary of the business task
+* A description of all data sources used
+* Documentation of any cleaning or manipulation of data
+* A summary of your analysis
+* Supporting visualizations and key findings
+* Your top high-level content recommendations based on your analysis
+
+## Business Task
+
+In this project I will analyze smart device usage data in order to gain insight 
+into how consumers use non-Bellabeat smart devices. I will then select one Bellabeat
+product to apply these insights to, in my presentation. 
+
+## Data Source
+
+[FitBit Fitness Tracker Data](https://www.kaggle.com/arashnic/fitbit)
+(CC0: Public Domain, dataset made available through Mobius):
+
+This Kaggle data set contains personal fitness tracker from thirty fitbit users.
+Thirty eligible Fitbit users consented to the submission of personal tracker data,
+including minute-level output for physical activity, heart rate, and sleep monitoring.
+It includes information about daily activity, steps, and heart rate that can be 
+used to explore users’ habits.
+
+```{r libraries, echo=TRUE}
+
+#install.packages("tidyverse")
+library(tidyverse)
+
+#install.packages("dplyr")
+library(dplyr)
+
+#install.packages("ggplot2")
+library(ggplot2)
+
+```
+## Downloaded Datasets
+
+Leaf wearable devices is women-centric device primarily designed to track their 
+activities, sleep schedules, hydration levels, hygene, etc.
+I will be analyzing Fitbit smart wearable device which provides tracking of some
+of the similar activities if not all. So, I have included these below mentioned 
+datasets for my analysis.
+
+* dailyActivity_merged
+* dailySteps_merged
+* minuteSleep_merged
+* sleepDay_merged
+
+```{r dataset, echo=FALSE}
+sleep_log<- read_csv("~/Downloads/GOOGLE_DATA_ANALYTICS/capstone/fitbit_dataset/sleepDay_merged.csv")
+activity_log <- read_csv("~/Downloads/GOOGLE_DATA_ANALYTICS/capstone/fitbit_dataset/dailyActivity_merged.csv")
+sleep_minutes <- read_csv("~/Downloads/GOOGLE_DATA_ANALYTICS/capstone/fitbit_dataset/minuteSleep_merged.csv")
+steps_log <- read_csv("~/Downloads/GOOGLE_DATA_ANALYTICS/capstone/fitbit_dataset/dailySteps_merged.csv")
+```
+
+#### Explore the datasets
+```{r explore, echo = TRUE}
+
+head(sleep_log)
+head(activity_log)
+head(steps_log)
+head(sleep_minutes)
+```
+
+Checking the maximum and minimum distance values in activity dataset to look for 
+potential outliers
+
+
+```{r outliers, echo=TRUE}
+max(activity_log$TrackerDistance)
+min(activity_log$TrackerDistance)
+
+max(sleep_log$TotalMinutesAsleep)
+min(sleep_log$TotalMinutesAsleep)
+```
+
+We can observe that minimum value for TrackerDistance is 0 which is an indication
+to examine further.
+
+```{r zero_vals, echo=TRUE}
+
+activity_log %>% count(activity_log$TrackerDistance == 0)
+
+```
+We can see that out of 940 results 78 are 0 which accounts for roughly 5% missing
+values from daily activities, so it will be good idea to filter out these missing
+values.
+
+```{r filtered, echo=TRUE}
+
+activity_filtered <- activity_log %>% 
+  filter(activity_log$TrackerDistance != 0)
+
+head(activity_filtered)
+```
+
+Next, we will calculate summary statistics of the filtered activity data and 
+create different levels for activity.
+
+
+
+```{r summary_activity, echo=TRUE}
+
+summary_activity <- activity_filtered %>% 
+  group_by(Id) %>% 
+  summarize(total_dist = sum(TrackerDistance), avg_dist = mean(TrackerDistance),
+            num_dist = length(TrackerDistance))
+
+summary_activity$distance_level <- case_when(
+  summary_activity$avg_dist >= 8 ~ "Highly Active",
+  summary_activity$avg_dist >= 4 ~ "Moderately Active",
+  summary_activity$avg_dist >= 1 ~ "lowly Actively",
+  summary_activity$avg_dist < 1 ~ "inactive"
+)
+
+head(summary_activity)
+
+```
+Creating a scatter plot to verify if there is any positive correlation between 
+tracking distance and average distance.
+
+```{r plot1, echo=TRUE}
+
+ggplot(data=summary_activity) + geom_point(aes(x = avg_dist, y = num_dist, 
+                                               color= distance_level)) + 
+  facet_wrap(~distance_level)
+
+```
+From the plot above, we can observe a *little* *positive* *correlation* between
+tracking entries and average distance covered. All the users who are highly active
+have logged their entries more than 20 times. Similarly, moderately active users,
+have comparatively more tracking entries than lowly_active users.
+
+Now, we can extend our analysis to dig deeper and check if users who are highly
+active, have slept for longer.
+
+```{r sleep_track, echo= TRUE}
+
+summary_sleep <- sleep_log %>% 
+  group_by(Id) %>% 
+  summarize(total_sleep_min = sum(TotalMinutesAsleep), average_sleep_min = mean(TotalMinutesAsleep), num_sleep_entries = length(TotalMinutesAsleep))
+
+summary_sleep$sleep_levels <- case_when(
+  summary_sleep$average_sleep_min >= 480 ~ "Well Rested",
+  summary_sleep$average_sleep_min >= 360 ~ "Moderately Rested",
+  summary_sleep$average_sleep_min >= 240 ~ "Poorly Rested",
+  summary_sleep$average_sleep_min < 240 ~ "Not Rested"
+)
+  
+head(summary_sleep)
+```
+Now, we will again create a scatter plot to check for any correlation between
+average sleep and number of sleep entries.
+
+```{r sleep_plot, echo=TRUE}
+
+ggplot(data = summary_sleep) + geom_smooth(aes(x = num_sleep_entries, y = average_sleep_min))
+
+```
+Yes, we can observe a *positive* *correlation* between users who have more sleep
+entries and the number of hours they have slept.
+
+### To analyse a pattern between activity and sleep, we can combine the two summary dataframes.
+
+Combining *summary_activity* and *summary_sleep* to create a single dataframe.
+
+```{r activity_sleep,echo=TRUE}
+
+activity_sleep <- merge(summary_activity, summary_sleep, by = 'Id')
+
+head(activity_sleep)
+
+```
+We will again visualize to check if there is any correlation between users who
+are highly active and who have slept for longer duration.
+
+## Visualization
+
+```{r plot2, echo=TRUE}
+
+ggplot(data= activity_sleep) + geom_bar(aes(x=sleep_levels, fill = distance_level)) +
+  labs(title = "Sleep levels VS Distance Levels")
+
+ggplot(data= activity_sleep) + geom_bar(aes(x=distance_level, fill = sleep_levels)) +
+  labs(title = "Sleep levels VS Distance Levels")
+
+ggplot(data = activity_sleep) +
+   geom_line(aes(x=avg_dist, average_sleep_min))+
+   geom_smooth(aes(x=avg_dist, average_sleep_min))+
+   labs(title='Average Distance Tracked VS Average Sleep Time')
+
+ggplot(data=activity_sleep)+
+  geom_line(aes(x=average_sleep_min, avg_dist))+
+  geom_smooth(aes(x=average_sleep_min,y=avg_dist))+
+  labs(title='Average Sleep Time VS Average Distance Tracked')
+```
+Initially, I thought there would be a strong positive correlation between average
+distance tracking and sleeping i.e. A person who is very actively should have 
+rested for a longer duration than someone who is less active on an average. Looking 
+at these trends, I am surprised that my assumption has been refuted as after 
+visualizing these trends, it appears that there is *little* to *no* correlation 
+between the two things.
+
+```{r, echo=TRUE}
+ggplot(data = activity_sleep) + geom_line(aes(x = average_sleep_min, y = avg_dist))+
+  labs(title = "Average Distance tracked VS Sleep levels")+
+  facet_wrap(~distance_level)
+```
+* Thus, we can observe that a majority of people who tracked as average distance
+of > 7 Km rested for less than 400 minutes (6 hours, 30 mins)
+
+* On Contrary, people who were moderately active, slept for longer than 400 minutes.
+
+
+## Summary
+
+* This analysis was performed on a Fitbit wearable smart tracking device. The data 
+collected was based on a small group of 30 people in 2016 which was more than 5
+years ago.
+
+* While cleaning the data, I found that almost *5%* of the data from the sleep log 
+was *missing*, which could mean different things like - some users did not wear the 
+device while sleeping or the device got discharged at night or there was some 
+technical issue in the device which resulted in these *0* values.
+
+* Contrary to my initial assumption (people who are more active should sleep for 
+longer duration), I observed that there is *no correlation* between increased 
+distance tracking and sleeping for longer duration. 
+
+* Final results show that people who were moderately active diring the day i.e.
+people who tracked a distance between 4 Km to 8 Km had an average sleep of 6 hours 
+to 8 hours and beyond. 
+
+
+## Recommendation
+
+After analyzing the fitbit smart device in order to have its comparision with 
+Bellabeat's Leaf, I can conclude with the following recommedations-
+
+* Focus on advertisements to market the theory that tracking increased distances
+using Leaf device may result in better/relaxed sleep. 
+
+* We should also consider why there were 5% missing values in Fitbit devices and 
+avoid having those similar trends in Leaf by focusing on R & D as well.
+
+** Increasing battery capacity to avoid discharge during the nights or decrease
+battery usage through *low power mode* etc. 
+
+
